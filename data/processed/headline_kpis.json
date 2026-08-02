@@ -1,0 +1,26 @@
+{
+  "total_postings": 1044597,
+  "total_vacancies": 2725717,
+  "distinct_categories": 43,
+  "distinct_companies": 53150,
+  "median_salary": 3850.0,
+  "p25_salary": 2950.0,
+  "p75_salary": 5500.0,
+  "salary_coverage_pct": 99.0,
+  "open_share_pct": 88.5,
+  "hard_to_fill_pct": 4.1,
+  "entry_friendly_pct": 36.2,
+  "market_apps_per_vacancy": 3.77,
+  "date_min": "2022-10-03",
+  "date_max": "2024-05-29",
+  "engagement_reliable_end": "2023-06-30",
+  "volume_reliable_start": "2023-05-01",
+  "tracks_scored": 215,
+  "seniority_order": [
+    "Entry",
+    "Junior",
+    "Mid",
+    "Senior",
+    "Management"
+  ]
+}
