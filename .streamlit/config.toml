@@ -1,0 +1,16 @@
+# The chart palette is validated against a LIGHT chart surface, so the app pins
+# the light theme rather than following the viewer's OS setting - a dark surface
+# would invalidate the contrast guarantees behind every colour choice.
+[theme]
+base = "light"
+primaryColor = "#2a78d6"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f6f9"
+textColor = "#0b0b0b"
+font = "sans serif"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

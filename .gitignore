@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Data
+# ---------------------------------------------------------------------------
+# The raw file is 273 MB - far over GitHub's 100 MB hard limit. See SETUP.md
+# for where to obtain it.
+SGJobData.csv
+*.csv
+
+# Derived Parquet (~145 MB). Deliberately not committed: it is fully
+# reproducible from the raw CSV in ~17 seconds via
+#   python src/etl_clean.py && python src/build_aggregates.py
+*.parquet
+
+# The small JSON audit outputs ARE committed (force-added) - they are evidence
+# of what the cleaning did, and they are only a couple of KB.
+
+# Course materials supplied by the instructor - not our work to redistribute
+data analysis knowledge/
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# ---------------------------------------------------------------------------
+# Tooling / OS
+# ---------------------------------------------------------------------------
+.DS_Store
+.vscode/
+.idea/
+.claude/
+
+# ---------------------------------------------------------------------------
+# Secrets
+# ---------------------------------------------------------------------------
+.env
+*.key
+credentials.json
