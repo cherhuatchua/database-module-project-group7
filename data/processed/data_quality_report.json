@@ -1,0 +1,33 @@
+{
+  "source_file": "SGJobData.csv",
+  "rows_read": 1048585,
+  "rows_after_cleaning": 1044597,
+  "columns_dropped": {
+    "occupationId": "100% null across all 1,048,864 rows - carries no information",
+    "status_id": "redundant numeric duplicate of status_jobStatus"
+  },
+  "cleaning_counters": {
+    "rows_in": 1048585,
+    "dropped_empty_rows": 3988,
+    "unparseable_dates": 0,
+    "expiry_before_posting": 0,
+    "salary_zero_to_na": 0,
+    "salary_swapped": 0,
+    "salary_impossible_to_na": 10000,
+    "experience_capped": 21,
+    "vacancies_fixed": 87,
+    "rows_out": 1044597,
+    "duplicate_job_ids_removed": 0,
+    "salary_cap_lower": 1150,
+    "salary_cap_upper": 16500,
+    "salary_rows_capped": 19647
+  },
+  "date_range": {
+    "first_posting": "2022-10-03",
+    "last_posting": "2024-05-29"
+  },
+  "salary_coverage_pct": 99.04,
+  "distinct_categories": 43,
+  "distinct_companies": 53150,
+  "runtime_seconds": 15.2
+}
