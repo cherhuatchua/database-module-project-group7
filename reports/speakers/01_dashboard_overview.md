@@ -2,97 +2,98 @@
 
 **Career Compass SG · Module 1 Assignment · Group 7**
 
-**Your slot: 0:00 – 2:15 (2 minutes 15 seconds) · You open the presentation**
+**Your time: up to 3 minutes · You open the presentation**
 
 ---
 
 ## Your job in one sentence
 
-**Make the room care about the problem, then show them the thing we built.** You are the only
-speaker who gets to set the frame — everyone after you is explaining *how*. You explain *what*
-and *why*.
+**Make the room care about the problem, then give them a tour of what we built.** You set
+the stage. Everyone after you explains one part in detail — you explain the whole picture.
 
 ## Where you sit in the flow
 
 | | Speaker | Topic |
 |---|---|---|
-| **→ YOU** | **1** | **Dashboard Overview** |
-| | 2 | Technology stack |
+| **→ YOU** | **1** | **Dashboard overview** |
+| | 2 | Project technology stack |
 | | 3 | Data cleaning |
-| | 4 | Data analysis 1 — market & pay |
-| | 5 | Data analysis 2 — competition, skills & scoring |
+| | 4 | Data analysis 1 — Demand vs Competition |
+| | 5 | Data analysis 2 — Career Recommender |
 
-**You hand over to Speaker 2** with: *"…so that's what we built. Now — how do you make a
-million rows feel instant?"*
+**Your handover line to Speaker 2:** *"That's what the product looks like. Now my teammate
+will show you the technology that makes it run."*
 
 ---
 
 ## Before you start
 
-- Dashboard already running at `http://localhost:8501` — **do not start it in front of the room**
-- Browser on the **Market Overview** page, sidebar filters at defaults (May 2023 – May 2024)
-- Browser zoom ~80% so the full chart fits on the projector
-- Screenshot fallback slides ready for both demo screens
+- Dashboard already running at `http://localhost:8501` — never start it in front of the room
+- Browser on the **Market Overview** page, filters at their defaults
+- Browser zoom around 80% so charts fit the projector
+- Screenshot backup slides ready, in case the live demo fails
 
 ---
 
 ## Script
 
-### Part A — The problem *(0:00 – 0:45)*
+### Part 1 — The problem *(0:00 – 0:45)*
 
-*(Slide: title + the four dimensions)*
-
-> Everyone here has looked at a job board and asked a question it cannot answer.
+> Have you ever opened a job website and thought: "So many jobs — but which one is
+> actually right for me?"
 >
-> A job board tells you **what jobs exist**. It never tells you **which one is worth going
-> after** — and that question decides your next five years.
+> That is the problem. A job website shows you **what jobs exist**. It never tells you
+> **which job is worth going after** — and that question decides your next few years.
 >
-> **Our user is a Singapore job seeker or career switcher**, deciding which track to aim at.
-> That decision turns on four things no job board shows side by side:
+> Our user is a **job seeker or career switcher in Singapore**. Before they pick a career
+> track, they need four answers:
 >
 > - **Demand** — are there enough openings?
-> - **Pay** — what does it pay, at my level?
-> - **Competition** — how many people am I up against per seat?
-> - **Accessibility** — can I get in with what I have *today*?
+> - **Pay** — how much does it pay?
+> - **Competition** — how many people want the same seat?
+> - **Accessibility** — can I get in with my current experience?
+>
+> No website shows all four together. So we built one.
 
-### Part B — What we built *(0:45 – 1:15)*
+### Part 2 — What we built *(0:45 – 1:30)*
 
 *(Slide: the seven pages)*
 
-> So we built **Career Compass SG**. It scores **215 career tracks** — 43 categories across
-> five seniority levels — on those four dimensions, from **1,044,597 Singapore job postings**.
+> This is **Career Compass SG**, built from **1,044,597 real Singapore job postings**,
+> October 2022 to May 2024.
 >
-> Seven pages: six are **evidence**, and the seventh, the Recommender, is the **product**. We
-> didn't want a tool that tells you what to do without letting you check its reasoning.
+> We split the market into **215 career tracks** — a job category plus a seniority level,
+> like "IT at mid level". Every track gets a score on those four things.
 >
-> **Our test is three minutes** — open it and you can name the three tracks you should target.
+> The dashboard has **seven pages**. Think of them as six pages of **evidence** and one page
+> that is the **product** — the Career Recommender, which my teammate will demo at the end.
+> We designed it this way on purpose: the tool gives you advice, and every other page lets
+> you check where that advice came from.
 
-### Part C — Live demo, two screens only *(1:15 – 2:00)*
+### Part 3 — Quick live tour *(1:30 – 2:30)*
 
-> **Discipline: two clicks, not twelve. Do not free-roam.**
-
-**Click 1 — Market Overview** *(~25 s)*
-
-> One million postings. **$3,850 median monthly salary.** **36% open to someone with a year of
-> experience or less.**
+> Let me show you two screens. *(Click 1 — Market Overview)*
 >
-> Two habits you'll see everywhere: **we quote medians, not means** — the distribution is
-> skewed, and both lines are on this histogram. And this **grey band** marks months where our
-> collection was still filling up.
-
-**Click 2 — Career Explorer** *(~20 s)*
-
-> Every number is auditable. Pick IT: the pay ladder by seniority, the real job titles, and who
-> posts them — labelled **"Poster"**, not "Employer", because the top five are recruitment
-> agencies.
-
-### Part D — The honest admission *(2:00 – 2:15)*
-
-> One admission: **this wasn't our first idea.** We started with a top-paying-jobs dashboard.
-> The data killed it — pay, volume and competition are almost independent. My colleagues will
-> show you the numbers.
+> The front page: one million postings, **median salary $3,850 a month**, and **36% of
+> jobs open to people with one year of experience or less**.
 >
-> **So that's what we built. Now — how do you make a million rows feel instant?**
+> One detail we are proud of: every chart has its **main finding written in a sentence
+> above it**. We tell you the point first, then show the proof.
+>
+> *(Click 2 — Career Explorer)*
+>
+> And this page lets you dig into any category. Pick IT: you see what it pays at every
+> level, the actual job titles being advertised, and who posts them. Notice we say
+> **"Poster"**, not "Employer" — because the biggest posters are recruitment agencies, and
+> we would rather be honest about that than look impressive.
+
+### Part 4 — Handover *(2:30 – 2:50)*
+
+> One honest admission before I pass on: this was **not our first idea**. We started with a
+> simple "top-paying jobs" ranking. The data itself killed that idea — you will hear why
+> from my teammates.
+>
+> **That's what the product looks like. Now — the technology that makes it run.**
 
 ---
 
@@ -100,39 +101,36 @@ million rows feel instant?"*
 
 | Figure | Value |
 |---|---|
-| Postings analysed | **1,044,597** (from 1,048,585 raw) |
+| Postings analysed | **1,044,597** |
 | Date range | Oct 2022 – May 2024 |
-| Career tracks scored | **215** (43 categories × 5 seniority bands) |
+| Career tracks scored | **215** (43 categories × 5 seniority levels) |
 | Median monthly salary | **$3,850** |
 | Entry-friendly postings (≤ 1 yr experience) | **36%** |
-| Total vacancies (seats) | 2,725,717 |
-| Distinct posting organisations | 53,150 |
+| Pages in the dashboard | 7 |
 
 ## Questions you own
 
-**"Why not just use LinkedIn or MyCareersFuture directly?"**
-> They show you *postings*. They never show you the applicant-to-seat ratio, and they never let
-> you compare a track you're in against one you're not. That comparison is the entire product.
+**"Why not just use LinkedIn or MyCareersFuture?"**
+> Those sites show you job posts. They never show how many applicants compete for each seat,
+> and they never compare career tracks against each other. That comparison is our whole product.
 
-**"Who exactly is this for — is it a real product?"**
-> Primarily job seekers and career switchers; secondarily the coaches advising them. It is a
-> working local dashboard, not a deployed service. The analytics scale already — the missing
-> pieces are user accounts, a scheduled refresh and hosting.
+**"Who is this really for?"**
+> Job seekers and career switchers first; career coaches second. It runs locally today — the
+> analytics are ready, and hosting it as a public website is the natural next step.
 
-**"Isn't 'which career should I pick' too big a question for a dashboard?"**
-> It is, and we say so in the app. The score ranks *market conditions* — it knows nothing about
-> whether you'd enjoy the work. Market conditions are one input to a career decision, not the
-> decision.
+**"Can a dashboard really answer 'which career should I pick'?"**
+> Not alone — and we say so inside the app. Our score ranks *market conditions*. Whether you
+> would enjoy the work is your part of the decision.
 
-**If the live demo fails:** switch to the screenshot slides and narrate the same two screens.
-**Do not debug in front of the room.** Say "I'll show you the live version afterwards" and move on.
+**If the live demo fails:** switch to the screenshot slides and narrate the same two
+screens. **Never debug in front of the room.**
 
 ---
 
 ## Rehearsal checklist
 
-- [ ] Timed at **2:15 or under**, including the two clicks
-- [ ] The two-click path rehearsed on the actual machine you'll present from
-- [ ] You can state the four dimensions without looking at the slide
-- [ ] Handover line to Speaker 2 practised out loud
-- [ ] Fallback screenshots on your own slides, not someone else's laptop
+- [ ] Timed at **3:00 or under**, including both clicks
+- [ ] Demo path rehearsed on the actual presentation machine
+- [ ] You can say the four dimensions without looking at the slide
+- [ ] Handover line practised out loud
+- [ ] Backup screenshots on your own slides

@@ -2,88 +2,96 @@
 
 **Career Compass SG · Module 1 Assignment · Group 7**
 
-**Your slot: 3:45 – 6:00 (2 minutes 15 seconds) · You have the strongest material**
+**Your time: up to 3 minutes · You have the strongest story in the presentation**
 
 ---
 
 ## Your job in one sentence
 
-**Prove that we understood this data rather than just loading it.** You own the single best
-story in the whole presentation — the engagement break — and the assessment gives 25% to
-data handling, the largest single weighting. Spend your time on the *reasoning*, not the
-inventory of rules.
+**Prove we understood this data instead of just loading it.** Data handling carries the
+biggest weight in the marking (25%), and you own the best story in the whole talk — the
+discovery that the dataset was secretly two files stitched together.
 
 ## Where you sit in the flow
 
 | | Speaker | Topic |
 |---|---|---|
 | | 1 | Dashboard overview |
-| | 2 | Technology stack |
+| | 2 | Project technology stack |
 | **→ YOU** | **3** | **Data cleaning** |
-| | 4 | Data analysis 1 — market & pay |
-| | 5 | Data analysis 2 — competition, skills & scoring |
+| | 4 | Data analysis 1 — Demand vs Competition |
+| | 5 | Data analysis 2 — Career Recommender |
 
-**Speaker 2 hands you:** *"…none of it matters if the numbers going in are wrong — and this
-dataset had a trap in it."*
-**You hand to Speaker 4** with: *"So that's the data we trust. Here's what it actually says."*
+**Speaker 2 hands you:** *"…this dataset had a trap hidden inside it."*
+**Your handover to Speaker 4:** *"So that's the data we can trust. Now let's see what it
+tells us about demand and competition."*
 
-> **Discipline rule:** you are the most likely person to overrun. **If the clock passes 5:00
-> and you haven't started Part C, skip straight to it.** Part C is the part that must land.
+> **Time rule:** if you are running late, cut Part 2. **Part 3 is the story that must be
+> told** — protect it.
 
 ---
 
 ## Script
 
-### Part A — The principle, not the inventory *(3:45 – 4:25)*
+### Part 1 — Our cleaning principle *(0:00 – 0:50)*
 
-*(Slide: cleaning decisions — you will walk 3 rows, not 11)*
+*(Slide: cleaning examples — show 3, not all 11)*
 
-> Eleven cleaning rules. I'll give you the **principle** instead: **blank the untrustworthy
-> field, keep the trustworthy row.** A posting with a broken salary still proves a job exists.
+> We wrote eleven cleaning rules. The one principle behind all of them:
 >
-> - **`occupationId` was 100% empty** across all 1.05 million rows — dropped.
-> - **10,016 postings claimed a monthly salary above $60,000 or below $500** — annual figures
->   in a monthly field. We blanked the salary and kept the posting.
-> - **We capped the top and bottom 1%** rather than deleting, because deleting would have
->   biased our demand counts.
+> **If a value is broken, blank the value — but keep the row.**
 >
-> **99.6% of rows survive.**
+> A posting with a broken salary still proves **a job existed** — deleting the whole row
+> would break our job counts just to make salaries look clean. Three examples:
+>
+> - One column was **completely empty** in all 1.05 million rows — dropped.
+> - About **10,000 postings claimed salaries like $180,000 a month** — yearly figures in a
+>   monthly field. We blanked the salary, kept the posting.
+> - The most extreme 1% of salaries were **capped, not deleted**.
+>
+> After all the cleaning, **99.6% of the rows survive**.
 
-### Part B — Two traps worth naming *(4:25 – 4:55)*
+### Part 2 — Two traps that nearly caught us *(0:50 – 1:30)*
 
-*(Slide: the duplicates trap + the two-table diagram)*
+*(Slide: the two traps)*
 
-> Two traps.
+> Two traps worth sharing, because they could catch anyone in this room.
 >
-> **`.duplicated()` lied to us** — it reported 289 duplicate job IDs; all 289 were repeated
-> **blanks**. There are **zero real duplicates**.
+> **Trap one: the duplicate check lied.** pandas reported 289 duplicate job IDs — all 289
+> were **empty cells compared with each other**. Real duplicates: **zero**.
 >
-> **And one job belongs to up to three categories** — 1.69 on average — so counting rows and
-> counting category-rows answer different questions. We shipped that bug to ourselves: for an
-> hour our overview said **1.66 million postings instead of 1.04.**
+> **Trap two: one job can belong to up to three categories** — 1.69 on average. Count rows
+> after splitting by category and you double-count. We made this mistake ourselves: for an
+> hour our front page said **1.66 million postings instead of 1.04 million** — and it
+> looked completely believable.
 
-### Part C — The finding that changed the product *(4:55 – 6:00)*
+### Part 3 — The discovery that changed everything *(1:30 – 2:50)*
 
-*(Slide: the two-line engagement chart — this is your centrepiece, do not rush it)*
+*(Slide: the two-line engagement chart — speak slowly here)*
 
-> **Now the finding that changed everything.**
+> Now the big one.
 >
-> We plotted views and applications over time as a sanity check. Look at **June 2023**: mean
-> views per posting falls **from about 111 to about 5.** Zero-application postings jump **from
-> 18% to 79%.**
+> As a routine check, we plotted views and applications **over time**. We were not looking
+> for a problem. Look at what happens at **June 2023**.
 >
-> That's not Singapore losing interest. **This dataset is two extracts stitched together** —
-> everything after July 2023 was captured at posting time, so those counters never accumulated.
+> Average views per posting **fall from about 111 to about 5**. The share of postings with
+> **zero applications jumps from 18% to 79%**.
 >
-> **So demand and salary use all 1.04 million rows, but every competition metric uses only
-> postings up to 30 June 2023** — 203,702 of them — and it says so on screen every time.
+> Did Singaporeans stop applying for jobs? Of course not. **This dataset is two separate
+> downloads stitched together.** Postings after June 2023 were captured the moment they
+> were posted — their counters **never had time to grow**. They're frozen at zero.
 >
-> **If we'd missed this, every track would have looked uncontested, and our recommender would
-> have pointed people at the most crowded markets in Singapore.**
+> So our design decision: **job counts and salaries use all 1.04 million rows, but
+> competition uses only postings up to June 2023** — about 200,000 — and every page says
+> so on screen.
 >
-> Same story, smaller: **volume ramps until May 2023**, so every trend figure starts there.
+> If we had missed this, every track would have looked like it had **no competition at
+> all** — and our recommender would have sent people into the most crowded markets in
+> Singapore.
 >
-> **That's the data we trust. Here's what it says.**
+> **That is the difference between a dashboard and a wrong dashboard.**
+>
+> **So that's the data we can trust. Now — what it tells us about demand and competition.**
 
 ---
 
@@ -91,63 +99,38 @@ dataset had a trap in it."*
 
 | Figure | Value |
 |---|---|
-| Rows read → rows kept | **1,048,585 → 1,044,597 (99.6%)** |
-| Wholly empty rows dropped | 3,988 (0.38%) |
-| Impossible salaries blanked | **10,016** |
-| Rows capped at 1st/99th percentile | **19,647** (band $1,150 – $16,500) |
-| Genuine duplicate job IDs | **0** (the 289 were repeated blanks) |
-| Categories per posting | **1.69 average**, max 3 → 1,767,829 long rows |
-| **Engagement break** | **views 111 → 5; zero-application 18% → 79%, at Jun/Jul 2023** |
-| Competition window | postings ≤ **2023-06-30**, **203,702** of them |
-| Volume reliable from | **May 2023** (~75,000 postings/month) |
-| Salary disclosed after cleaning | 99.0% |
-
-## The eleven rules, if anyone asks for the full list
-
-| Issue | Decision |
-|---|---|
-| `occupationId` 100% null | drop column |
-| `status_id` duplicates `status_jobStatus` | drop column |
-| 3,988 wholly empty rows | drop rows |
-| `salary == 0` | set to missing — zero means "not disclosed" |
-| salary < $500 or > $60,000/month | blank the salary, keep the row |
-| `salary_min > salary_max` | swap the values — fields entered backwards |
-| long right tail | cap at 1st/99th percentile |
-| experience > 40 years | set to missing |
-| vacancies 0 or > 500 | floor at 1 / blank above 500 |
-| duplicate job IDs | de-duplicate `keep="last"` (no-op here) |
-| `categories` JSON array | parse and explode to a long table |
+| Rows read → kept | **1,048,585 → 1,044,597 (99.6%)** |
+| Impossible salaries blanked | ~10,000 |
+| Salary rows capped (top/bottom 1%) | 19,647 |
+| Real duplicate job IDs | **0** (the "289" were blanks) |
+| Categories per job | **1.69 average**, max 3 |
+| **The break** | **views 111 → 5, zero-application 18% → 79%, at June 2023** |
+| Competition window | postings up to **30 June 2023** (~203,702) |
 
 ## Questions you own
 
-**"Why cap outliers instead of dropping them?"**
-> Dropping the row removes the posting from the demand count too. Capping keeps the demand
-> signal honest while stopping 19,647 extreme values from steering every average.
+**"Why cap outliers instead of deleting them?"**
+> Deleting the row also deletes the job from our demand counts. Capping keeps the counts
+> honest while stopping extreme values from distorting averages.
 
-**"How do you know the June 2023 break is a collection artefact and not real?"**
-> Three things move together at exactly one boundary: mean views, zero-application share, and
-> nothing else — posting volume, salaries and categories are all continuous across it. A real
-> collapse in jobseeker interest would show up in the postings too. It doesn't.
+**"How do you know the June 2023 break is a data problem and not real?"**
+> Because only the engagement counters break — posting volume, salaries, and categories all
+> continue smoothly across that date. A real market collapse would show up everywhere.
 
-**"Isn't throwing away 80% of your data for competition metrics a problem?"**
-> We're not throwing it away — demand and salary still use all of it. For competition we use
-> 203,702 postings, which is an ample base. The alternative was using numbers we know are wrong.
+**"Isn't using only 200,000 postings for competition too few?"**
+> It's still two hundred thousand postings — plenty. And the alternative was using numbers
+> we *know* are frozen at zero. Better a smaller honest number than a bigger wrong one.
 
-**"Why `repost_count >= 1` for hard-to-fill and not `>= 2`?"**
-> Because the field is capped at 2 in this extract — the only values are 0, 1 and 2. At `>= 2`
-> we'd flag 1.4% of postings; at `>= 1`, 4.1%. Any repost at all is the meaningful signal here.
-
-**"What about the 0.14% of missing values — why drop rows rather than impute?"**
-> We checked first whether the gaps were the *same* rows. They were: wholly empty export lines
-> with no ID, no title, no company and no dates. There's nothing to impute from.
+**"Why drop rows with missing values instead of filling them in?"**
+> We checked first: the missing values were all on the *same* rows — completely empty lines
+> with no ID, no title, no dates. There was nothing left to fill in from.
 
 ---
 
 ## Rehearsal checklist
 
-- [ ] Timed at **2:15** — and you know which part to cut if you're over (Part A drops to one example)
-- [ ] You can deliver the engagement-break story **without the slide**, from memory
-- [ ] You can say why it's an artefact, not a real signal, in two sentences
-- [ ] You are comfortable saying "we shipped that bug to ourselves" — owning a mistake reads
-      as competence, not weakness
-- [ ] Handover line to Speaker 4 practised
+- [ ] Timed at **3:00 or under** — and you know Part 2 is the part to cut if late
+- [ ] You can tell the June 2023 story from memory, without the slide
+- [ ] You can explain in one sentence why the counters are frozen, not wrong
+- [ ] You are comfortable admitting our own 1.66-million bug — owning it reads as competence
+- [ ] Handover line practised

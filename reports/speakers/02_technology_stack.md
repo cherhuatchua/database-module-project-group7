@@ -2,79 +2,100 @@
 
 **Career Compass SG · Module 1 Assignment · Group 7**
 
-**Your slot: 2:15 – 3:45 (1 minute 30 seconds) · You are the shortest slot — stay tight**
+**Your time: up to 3 minutes · You explain how it is built**
 
 ---
 
 ## Your job in one sentence
 
-**Show that the architecture was a decision, not an accident.** Anyone can call
-`pd.read_csv`. Your 90 seconds are about *why* the pipeline has three stages and what that
-bought us — a dashboard that filters a million rows in six hundredths of a second.
+**Show that the architecture was a choice, not an accident.** Anyone can load a CSV. Your
+three minutes explain *why* we built a three-stage pipeline, and what it bought us: a
+dashboard that filters a million rows faster than you can blink.
 
 ## Where you sit in the flow
 
 | | Speaker | Topic |
 |---|---|---|
 | | 1 | Dashboard overview |
-| **→ YOU** | **2** | **Technology stack** |
+| **→ YOU** | **2** | **Project technology stack** |
 | | 3 | Data cleaning |
-| | 4 | Data analysis 1 — market & pay |
-| | 5 | Data analysis 2 — competition, skills & scoring |
+| | 4 | Data analysis 1 — Demand vs Competition |
+| | 5 | Data analysis 2 — Career Recommender |
 
-**Speaker 1 hands you:** *"…now, how do you make a million rows feel instant?"*
-**You hand to Speaker 3** with: *"That's the machinery. But none of it matters if the numbers
-going in are wrong — and this dataset had a trap in it."*
+**Speaker 1 hands you:** *"…now, the technology that makes it run."*
+**Your handover to Speaker 3:** *"But fast technology means nothing if the data going in is
+wrong — and this dataset had a trap hidden inside it."*
 
 ---
 
 ## Script
 
-### Part A — The stack and the three stages *(2:15 – 3:00)*
+### Part 1 — The tools *(0:00 – 0:40)*
+
+*(Slide: the stack logos)*
+
+> Everything in this project is **Python**. Let me name the five tools and what each one
+> does — one sentence each.
+>
+> - **pandas** does all the data cleaning and number-crunching.
+> - **Parquet** is the file format we store clean data in — think of it as a compressed,
+>   super-fast version of a spreadsheet file.
+> - **Streamlit** turns Python code into the web dashboard you just saw.
+> - **Plotly** draws the interactive charts — hover on anything and you get the details.
+> - **matplotlib and seaborn** draw the static charts in our notebook and report.
+>
+> No fancy databases, no cloud services. Simple tools, used carefully.
+
+### Part 2 — The three-stage pipeline *(0:40 – 1:40)*
 
 *(Slide: the pipeline diagram)*
 
-> **Python and pandas, in three stages**, so the dashboard never touches the raw CSV.
+> The important part is not the tools — it is **how we arranged them**. Three stages:
 >
 > ```
-> SGJobData.csv  (273 MB, 1.05M rows)
->        ↓  src/etl_clean.py        chunked read, cleaning, features      ~15 s
->   3 Parquet tables
->        ↓  src/build_aggregates.py summaries + Career Fit Score           ~2 s
->   8 aggregate tables + KPI JSON
->        ↓  app/ (Streamlit + Plotly)  reads Parquet, filters live      <0.1 s
+> Raw CSV (273 MB, 1.05 million rows)
+>      ↓  Stage 1: clean it            → takes about 15 seconds
+> Clean Parquet files
+>      ↓  Stage 2: pre-compute summaries → takes about 2 seconds
+> Summary tables + scores
+>      ↓  Stage 3: the dashboard reads the results
 > ```
 >
-> **Stage one** reads 273 megabytes in **six chunks of 200,000 rows**, cleans each, then
-> applies the two rules that need the whole file — de-duplication and outlier capping.
-> **Fifteen seconds.**
+> **Stage one** reads the 273-megabyte raw file in **six chunks of 200,000 rows** — the
+> file is too big to treat carelessly, so we clean it piece by piece. The whole thing runs
+> in about **15 seconds**.
 >
-> **Stage two** pre-computes every summary the dashboard draws.
+> **Stage two** pre-computes every summary table the dashboard needs.
 >
-> **Stage three is Streamlit and Plotly** — Streamlit because it's Python end to end, Plotly
-> because every chart needed hover tooltips. The notebook and report figures use matplotlib
-> and seaborn.
+> **Stage three** is the dashboard itself. The key rule: **the dashboard never touches the
+> raw file.** It only reads the small, clean, pre-processed results. That is why it starts
+> instantly.
 
-### Part B — The number that justifies all of it *(3:00 – 3:30)*
+### Part 3 — The payoff *(1:40 – 2:20)*
 
-*(Slide: the performance figures)*
+*(Slide: the performance numbers)*
 
-> Here's what that bought us. Our working table is **1.77 million rows**. As **Parquet with
-> categorical dtypes** it sits in **170 megabytes**, and a full **filter-and-group-by takes
-> 0.06 seconds.**
+> Here is what this design bought us — one number to remember.
 >
-> **That speed is why our filters are real.** Many dashboards filter a frozen summary table —
-> you move a slider and the same numbers come back reshuffled. Ours recomputes from row level
-> every time, across seven pages.
-
-### Part C — One engineering decision worth naming *(3:30 – 3:45)*
-
-> One decision I'd defend: **the dashboard imports its scoring functions from the pipeline**
-> rather than reimplementing them, so the numbers on screen and in our report **cannot drift
-> apart.**
+> Our working table has **1.77 million rows**. Filtering it and re-computing every chart
+> takes **0.06 seconds**. Six hundredths of a second.
 >
-> **That's the machinery. None of it matters if the numbers going in are wrong — and this
-> dataset had a trap.**
+> Why does that matter? Because it means our filters are **real**. When you move a slider in
+> our dashboard, we re-calculate everything from the raw rows, live. Many dashboards just
+> reshuffle a frozen summary table. Ours actually recomputes — because we made it fast
+> enough to afford that.
+
+### Part 4 — One decision worth defending *(2:20 – 2:50)*
+
+> One last engineering decision. The dashboard **imports its scoring code from the
+> pipeline** — the exact same functions, not a copy.
+>
+> Why? Because if you write the same formula twice, one day the two copies disagree, and
+> your slides contradict your own dashboard. With one shared implementation, the numbers on
+> screen and the numbers in our report **can never drift apart**.
+>
+> **But fast technology means nothing if the data going in is wrong — and this dataset had
+> a trap hidden inside it.**
 
 ---
 
@@ -84,52 +105,45 @@ going in are wrong — and this dataset had a trap in it."*
 |---|---|
 | Raw file | **273 MB, 1,048,585 rows** |
 | Chunk size | 200,000 rows × 6 chunks |
-| ETL runtime | **~15 seconds** (aggregates: ~2 s more) |
-| Working table in the app | **1,767,829 rows / 170 MB in memory** |
-| Filter + group-by cycle | **0.06 seconds** |
-| Dashboard pages / chart types | 7 pages, ~17 chart types |
+| Cleaning runtime | **~15 seconds** |
+| Working table | **1.77 million rows** |
+| Filter + recompute time | **0.06 seconds** |
+| Pages / chart types | 7 pages, ~17 chart types |
 
 ## The stack, one line each
 
-| Tool | Why it is there |
+| Tool | Job |
 |---|---|
-| **pandas** | the whole cleaning and aggregation layer |
-| **PyArrow / Parquet** | columnar storage + categorical dtypes — the 170 MB figure |
-| **Streamlit** | Python end to end, multi-page routing for free, `st.session_state` shares filters across pages |
-| **Plotly** | interactive charts with hover tooltips in the app |
-| **matplotlib + seaborn** | static figures for the notebook and report |
-| **`@st.cache_data`** | caches loads and aggregations keyed on the filter signature |
+| pandas | cleaning and aggregation |
+| Parquet (PyArrow) | fast, compressed storage of clean data |
+| Streamlit | Python → web dashboard |
+| Plotly | interactive charts with tooltips |
+| matplotlib + seaborn | static charts for notebook and report |
 
 ## Questions you own
 
-**"Why Parquet and not just keep the CSV?"**
-> Columnar, compressed and typed. Reading the columns we need from Parquet is roughly 20×
-> faster than re-parsing 273 MB of text, and categorical dtypes cut the string columns from
-> hundreds of megabytes to tens.
+**"Why Parquet instead of keeping the CSV?"**
+> Parquet is compressed, typed, and column-based. Reading it is roughly 20 times faster than
+> re-parsing 273 MB of text every time.
 
-**"Why not a database — SQL, DuckDB?"**
-> Nothing here needs a query engine. It's one dataset, refreshed in batch, and pandas already
-> does the whole job in 15 seconds. A database would add a moving part without removing one.
+**"Why not a database?"**
+> One dataset, refreshed in batch, fully processed in 15 seconds by pandas. A database would
+> add a moving part without removing one.
 
-**"Why Streamlit over Power BI or Tableau?"**
-> Our cleaning rules and the scoring model are Python. Streamlit lets the dashboard call that
-> code directly. In a BI tool we'd have had to reimplement the score in the tool's own
-> expression language — which is exactly the drift problem I just described.
+**"Why Streamlit and not Power BI or Tableau?"**
+> Our cleaning rules and scoring model are Python code. Streamlit calls that code directly.
+> In a BI tool we would have to rebuild the score in a different language — that is exactly
+> the "two copies drift apart" problem.
 
-**"Is `@st.cache_data` hiding stale data?"**
-> No — the cache key includes the filter signature, so changing any filter recomputes. The
-> underlying Parquet only changes when we re-run the ETL.
-
-**"How would this scale to a real product?"**
-> The pipeline already handles the full million in 15 seconds and the app reads pre-built
-> Parquet. The missing pieces are a scheduled refresh, user accounts and hosting — not the
-> analytics.
+**"Could this scale to a real product?"**
+> Yes — the pipeline already handles a million rows in 15 seconds. What's missing is
+> hosting, user accounts, and a scheduled data refresh. Not the analytics.
 
 ---
 
 ## Rehearsal checklist
 
-- [ ] Timed at **1:30 or under** — this is the tightest slot in the presentation
-- [ ] You can say "1.77 million rows, 170 megabytes, 0.06 seconds" without reading it
-- [ ] You know what a categorical dtype does, in one sentence, if asked
-- [ ] Handover line to Speaker 3 practised — it sets up their whole section
+- [ ] Timed at **3:00 or under**
+- [ ] You can say "1.77 million rows, 0.06 seconds" from memory
+- [ ] You can explain Parquet in one plain sentence
+- [ ] Handover line practised — it sets up the whole next section
