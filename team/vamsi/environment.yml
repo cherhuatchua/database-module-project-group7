@@ -1,0 +1,14 @@
+name: assignment_1
+channels:
+  - defaults
+dependencies:
+  - pandas=2.2
+  - numpy=1.26
+  - pyarrow=16.1.0
+  - streamlit=1.35
+  - plotly=5.22.0
+  - matplotlib=3.8
+  - seaborn=0.13
+  - jupyter>=1.0
+  - python=3.10
+  - notebook=7.0.6
